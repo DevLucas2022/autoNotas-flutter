@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "600566659484",
+    "project_id": "autonotas-ec4a9",
+    "storage_bucket": "autonotas-ec4a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600566659484:android:8227a6bd737148e8377059",
+        "android_client_info": {
+          "package_name": "com.mycompany.autonotas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo-9x5lYWcplw1Lldohh85ziCYSQqOB64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
