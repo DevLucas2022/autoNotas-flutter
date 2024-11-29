@@ -34,6 +34,8 @@ class _EntrarSalaAlunoWidgetState extends State<EntrarSalaAlunoWidget> {
         parameters: {'screen_name': 'entrarSalaAluno'});
     _model.codigoSalaTextController ??= TextEditingController();
     _model.codigoSalaFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -275,6 +277,9 @@ class _EntrarSalaAlunoWidgetState extends State<EntrarSalaAlunoWidget> {
                                       nomeProfessor:
                                           _model.codeQuery?.nomeProfessor,
                                       userId: currentUserUid,
+                                      nivelSala: _model.codeQuery?.nivelSala,
+                                      categoriaDisciplina:
+                                          _model.codeQuery?.categoriaDisciplina,
                                     ),
                                     ...mapToFirestore(
                                       {

@@ -93,18 +93,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => OnboardingWidget(),
         ),
         FFRoute(
-          name: 'select_role',
-          path: '/selectRole',
-          builder: (context, params) => SelectRoleWidget(),
-        ),
-        FFRoute(
-          name: 'PaginaAluno',
-          path: '/paginaAluno',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'PaginaAluno')
-              : PaginaAlunoWidget(),
-        ),
-        FFRoute(
           name: 'loginRegister_global',
           path: '/loginRegisterGlobal',
           builder: (context, params) => LoginRegisterGlobalWidget(),
@@ -149,12 +137,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'codigoSala',
               ParamType.String,
             ),
+            categoriaDisciplina: params.getParam(
+              'categoriaDisciplina',
+              ParamType.String,
+            ),
+            nivelSala: params.getParam(
+              'nivelSala',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: 'PaginaAluno_dev',
           path: '/paginaAlunoDev',
-          builder: (context, params) => PaginaAlunoDevWidget(),
+          builder: (context, params) => PaginaAlunoDevWidget(
+            codigoSala: params.getParam(
+              'codigoSala',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'entrarSalaAluno',
@@ -173,7 +174,72 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'nomeDisciplina',
               ParamType.String,
             ),
+            codigoSala: params.getParam(
+              'codigoSala',
+              ParamType.String,
+            ),
+            nota1: params.getParam(
+              'nota1',
+              ParamType.double,
+            ),
+            nota2: params.getParam(
+              'nota2',
+              ParamType.double,
+            ),
+            nota3: params.getParam(
+              'nota3',
+              ParamType.double,
+            ),
+            notaAtividade: params.getParam(
+              'notaAtividade',
+              ParamType.double,
+            ),
           ),
+        ),
+        FFRoute(
+          name: 'detailAluno',
+          path: '/detailAluno',
+          builder: (context, params) => DetailAlunoWidget(
+            nomeAluno: params.getParam(
+              'nomeAluno',
+              ParamType.String,
+            ),
+            prova1: params.getParam(
+              'prova1',
+              ParamType.String,
+            ),
+            prova2: params.getParam(
+              'prova2',
+              ParamType.double,
+            ),
+            notaAtividade: params.getParam(
+              'notaAtividade',
+              ParamType.double,
+            ),
+            recuperacao: params.getParam(
+              'recuperacao',
+              ParamType.double,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Dashboard',
+          path: '/dashboard',
+          builder: (context, params) => DashboardWidget(
+            categoriaDisciplina: params.getParam(
+              'categoriaDisciplina',
+              ParamType.String,
+            ),
+            nivelSala: params.getParam(
+              'nivelSala',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'dash',
+          path: '/dash',
+          builder: (context, params) => DashWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

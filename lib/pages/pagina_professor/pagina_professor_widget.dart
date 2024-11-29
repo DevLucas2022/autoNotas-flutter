@@ -29,6 +29,7 @@ class _PaginaProfessorWidgetState extends State<PaginaProfessorWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'PaginaProfessor'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -69,25 +70,30 @@ class _PaginaProfessorWidgetState extends State<PaginaProfessorWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 20.0,
+                  height: 100.0,
                   decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          'PROFESSOR',
-                          textAlign: TextAlign.start,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter Tight',
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/teacher-.png',
+                          width: 103.0,
+                          height: 525.0,
+                          fit: BoxFit.fitWidth,
                         ),
+                      ),
+                      Text(
+                        ' PROFESSORES',
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontSize: 20.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ],
                   ),
@@ -105,11 +111,13 @@ class _PaginaProfessorWidgetState extends State<PaginaProfessorWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                     child: Text(
-                      'Suas salas. ',
+                      'Disciplinas ministradas',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
+                            fontFamily: 'PT Sans',
+                            fontSize: 20.0,
                             letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
                           ),
                     ),
                   ),
@@ -173,8 +181,45 @@ class _PaginaProfessorWidgetState extends State<PaginaProfessorWidget> {
                                   columnSalasRecord.codigoSala,
                                   ParamType.String,
                                 ),
+                                'categoriaDisciplina': serializeParam(
+                                  columnSalasRecord.categoriaDisciplina,
+                                  ParamType.String,
+                                ),
+                                'nivelSala': serializeParam(
+                                  columnSalasRecord.nivelSala,
+                                  ParamType.String,
+                                ),
                               }.withoutNulls,
                             );
+                          },
+                          onLongPress: () async {
+                            logFirebaseEvent(
+                                'PAGINA_PROFESSOR_Card_zlf001gx_ON_LONG_P');
+                            logFirebaseEvent('Card_alert_dialog');
+                            var confirmDialogResponse = await showDialog<bool>(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Excluir disciplina'),
+                                      content: Text('Deseja Continuar?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, false),
+                                          child: Text('Cancelar'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, true),
+                                          child: Text('Confirmar'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                            logFirebaseEvent('Card_backend_call');
+                            await columnSalasRecord.reference.delete();
                           },
                           child: Card(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -194,7 +239,7 @@ class _PaginaProfessorWidgetState extends State<PaginaProfessorWidget> {
                                     borderRadius: 8.0,
                                     buttonSize: 40.0,
                                     icon: Icon(
-                                      Icons.groups_outlined,
+                                      Icons.class_outlined,
                                       color: FlutterFlowTheme.of(context).info,
                                       size: 24.0,
                                     ),
@@ -252,6 +297,50 @@ class _PaginaProfessorWidgetState extends State<PaginaProfessorWidget> {
                       }),
                     );
                   },
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'PAGINA_PROFESSOR_SAIR_DO_APLICATIVO_BTN_');
+                      logFirebaseEvent('Button_auth');
+                      GoRouter.of(context).prepareAuthEvent();
+                      await authManager.signOut();
+                      GoRouter.of(context).clearRedirectLocation();
+
+                      context.goNamedAuth('Onboarding', context.mounted);
+                    },
+                    text: 'Sair do aplicativo',
+                    icon: Icon(
+                      Icons.subdirectory_arrow_left_rounded,
+                      size: 18.0,
+                    ),
+                    options: FFButtonOptions(
+                      width: 300.0,
+                      height: 52.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Inter Tight',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                  ),
                 ),
               ),
             ],

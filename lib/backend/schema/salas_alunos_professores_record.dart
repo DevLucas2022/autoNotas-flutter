@@ -56,6 +56,41 @@ class SalasAlunosProfessoresRecord extends FirestoreRecord {
   String get userId => _userId ?? '';
   bool hasUserId() => _userId != null;
 
+  // "nivel_sala" field.
+  String? _nivelSala;
+  String get nivelSala => _nivelSala ?? '';
+  bool hasNivelSala() => _nivelSala != null;
+
+  // "categoria_disciplina" field.
+  String? _categoriaDisciplina;
+  String get categoriaDisciplina => _categoriaDisciplina ?? '';
+  bool hasCategoriaDisciplina() => _categoriaDisciplina != null;
+
+  // "prova_1" field.
+  double? _prova1;
+  double get prova1 => _prova1 ?? 0.0;
+  bool hasProva1() => _prova1 != null;
+
+  // "prova_2" field.
+  double? _prova2;
+  double get prova2 => _prova2 ?? 0.0;
+  bool hasProva2() => _prova2 != null;
+
+  // "atividade" field.
+  double? _atividade;
+  double get atividade => _atividade ?? 0.0;
+  bool hasAtividade() => _atividade != null;
+
+  // "recuperacao" field.
+  double? _recuperacao;
+  double get recuperacao => _recuperacao ?? 0.0;
+  bool hasRecuperacao() => _recuperacao != null;
+
+  // "feedback" field.
+  String? _feedback;
+  String get feedback => _feedback ?? '';
+  bool hasFeedback() => _feedback != null;
+
   void _initializeFields() {
     _codigoSala = snapshotData['codigo_sala'] as String?;
     _nomeDisciplina = snapshotData['nome_disciplina'] as String?;
@@ -65,6 +100,13 @@ class SalasAlunosProfessoresRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _nomeProfessor = snapshotData['nome_professor'] as String?;
     _userId = snapshotData['user_id'] as String?;
+    _nivelSala = snapshotData['nivel_sala'] as String?;
+    _categoriaDisciplina = snapshotData['categoria_disciplina'] as String?;
+    _prova1 = castToType<double>(snapshotData['prova_1']);
+    _prova2 = castToType<double>(snapshotData['prova_2']);
+    _atividade = castToType<double>(snapshotData['atividade']);
+    _recuperacao = castToType<double>(snapshotData['recuperacao']);
+    _feedback = snapshotData['feedback'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -112,6 +154,13 @@ Map<String, dynamic> createSalasAlunosProfessoresRecordData({
   DateTime? createdTime,
   String? nomeProfessor,
   String? userId,
+  String? nivelSala,
+  String? categoriaDisciplina,
+  double? prova1,
+  double? prova2,
+  double? atividade,
+  double? recuperacao,
+  String? feedback,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -123,6 +172,13 @@ Map<String, dynamic> createSalasAlunosProfessoresRecordData({
       'created_time': createdTime,
       'nome_professor': nomeProfessor,
       'user_id': userId,
+      'nivel_sala': nivelSala,
+      'categoria_disciplina': categoriaDisciplina,
+      'prova_1': prova1,
+      'prova_2': prova2,
+      'atividade': atividade,
+      'recuperacao': recuperacao,
+      'feedback': feedback,
     }.withoutNulls,
   );
 
@@ -143,7 +199,14 @@ class SalasAlunosProfessoresRecordDocumentEquality
         e1?.nomeAluno == e2?.nomeAluno &&
         e1?.createdTime == e2?.createdTime &&
         e1?.nomeProfessor == e2?.nomeProfessor &&
-        e1?.userId == e2?.userId;
+        e1?.userId == e2?.userId &&
+        e1?.nivelSala == e2?.nivelSala &&
+        e1?.categoriaDisciplina == e2?.categoriaDisciplina &&
+        e1?.prova1 == e2?.prova1 &&
+        e1?.prova2 == e2?.prova2 &&
+        e1?.atividade == e2?.atividade &&
+        e1?.recuperacao == e2?.recuperacao &&
+        e1?.feedback == e2?.feedback;
   }
 
   @override
@@ -155,7 +218,14 @@ class SalasAlunosProfessoresRecordDocumentEquality
         e?.nomeAluno,
         e?.createdTime,
         e?.nomeProfessor,
-        e?.userId
+        e?.userId,
+        e?.nivelSala,
+        e?.categoriaDisciplina,
+        e?.prova1,
+        e?.prova2,
+        e?.atividade,
+        e?.recuperacao,
+        e?.feedback
       ]);
 
   @override

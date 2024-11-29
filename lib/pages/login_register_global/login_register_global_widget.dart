@@ -116,6 +116,8 @@ class _LoginRegisterGlobalWidgetState extends State<LoginRegisterGlobalWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -266,7 +268,7 @@ class _LoginRegisterGlobalWidgetState extends State<LoginRegisterGlobalWidget>
                                                     .fromSTEB(
                                                         0.0, 12.0, 0.0, 24.0),
                                                 child: Text(
-                                                  'Seja bem-vindo de volta PROFESSOR👋',
+                                                  'Seja bem-vindo de volta👋',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .labelMedium

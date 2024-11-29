@@ -90,6 +90,8 @@ class _AtualizarInformacoesGlobalWidgetState
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

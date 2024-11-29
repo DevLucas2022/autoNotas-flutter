@@ -46,6 +46,16 @@ class SalasRecord extends FirestoreRecord {
   String get nomeProfessor => _nomeProfessor ?? '';
   bool hasNomeProfessor() => _nomeProfessor != null;
 
+  // "categoria_disciplina" field.
+  String? _categoriaDisciplina;
+  String get categoriaDisciplina => _categoriaDisciplina ?? '';
+  bool hasCategoriaDisciplina() => _categoriaDisciplina != null;
+
+  // "nivel_sala" field.
+  String? _nivelSala;
+  String get nivelSala => _nivelSala ?? '';
+  bool hasNivelSala() => _nivelSala != null;
+
   void _initializeFields() {
     _nomeInstituicao = snapshotData['nome_instituicao'] as String?;
     _descricaoSala = snapshotData['descricao_sala'] as String?;
@@ -53,6 +63,8 @@ class SalasRecord extends FirestoreRecord {
     _codigoSala = snapshotData['codigo_sala'] as String?;
     _userId = snapshotData['user_id'] as DocumentReference?;
     _nomeProfessor = snapshotData['nome_professor'] as String?;
+    _categoriaDisciplina = snapshotData['categoria_disciplina'] as String?;
+    _nivelSala = snapshotData['nivel_sala'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -95,6 +107,8 @@ Map<String, dynamic> createSalasRecordData({
   String? codigoSala,
   DocumentReference? userId,
   String? nomeProfessor,
+  String? categoriaDisciplina,
+  String? nivelSala,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -104,6 +118,8 @@ Map<String, dynamic> createSalasRecordData({
       'codigo_sala': codigoSala,
       'user_id': userId,
       'nome_professor': nomeProfessor,
+      'categoria_disciplina': categoriaDisciplina,
+      'nivel_sala': nivelSala,
     }.withoutNulls,
   );
 
@@ -120,7 +136,9 @@ class SalasRecordDocumentEquality implements Equality<SalasRecord> {
         e1?.nomeDisciplina == e2?.nomeDisciplina &&
         e1?.codigoSala == e2?.codigoSala &&
         e1?.userId == e2?.userId &&
-        e1?.nomeProfessor == e2?.nomeProfessor;
+        e1?.nomeProfessor == e2?.nomeProfessor &&
+        e1?.categoriaDisciplina == e2?.categoriaDisciplina &&
+        e1?.nivelSala == e2?.nivelSala;
   }
 
   @override
@@ -130,7 +148,9 @@ class SalasRecordDocumentEquality implements Equality<SalasRecord> {
         e?.nomeDisciplina,
         e?.codigoSala,
         e?.userId,
-        e?.nomeProfessor
+        e?.nomeProfessor,
+        e?.categoriaDisciplina,
+        e?.nivelSala
       ]);
 
   @override

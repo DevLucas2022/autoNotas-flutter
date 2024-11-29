@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'criar_sala_professor_widget.dart' show CriarSalaProfessorWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +27,12 @@ class CriarSalaProfessorModel
   TextEditingController? textFieldDisciplinaTextController;
   String? Function(BuildContext, String?)?
       textFieldDisciplinaTextControllerValidator;
+  // State field(s) for nivel_sala widget.
+  String? nivelSalaValue;
+  FormFieldController<String>? nivelSalaValueController;
+  // State field(s) for categoria_disciplina widget.
+  String? categoriaDisciplinaValue;
+  FormFieldController<String>? categoriaDisciplinaValueController;
   // State field(s) for TextField_descricao widget.
   FocusNode? textFieldDescricaoFocusNode;
   TextEditingController? textFieldDescricaoTextController;

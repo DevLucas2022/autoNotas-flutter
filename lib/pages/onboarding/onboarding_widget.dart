@@ -25,6 +25,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     _model = createModel(context, () => OnboardingModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Onboarding'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -79,7 +80,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   4.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'AUTO NOTAS',
+                                'AUTONOTAS',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -97,7 +98,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 1.0, 0.0),
                           child: Text(
-                            'E ACOMPANHE SUA EVOLUÇÃO COMO ALUNO',
+                            'E ACOMPANHE SUA EVOLUÇÃO',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

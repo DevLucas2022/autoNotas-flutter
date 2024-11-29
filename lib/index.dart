@@ -1,7 +1,5 @@
 // Export pages
 export '/pages/onboarding/onboarding_widget.dart' show OnboardingWidget;
-export '/old/select_role/select_role_widget.dart' show SelectRoleWidget;
-export '/pagina_aluno/pagina_aluno_widget.dart' show PaginaAlunoWidget;
 export '/pages/login_register_global/login_register_global_widget.dart'
     show LoginRegisterGlobalWidget;
 export '/pages/pagina_professor/pagina_professor_widget.dart'
@@ -19,3 +17,6 @@ export '/pages/entrar_sala_aluno/entrar_sala_aluno_widget.dart'
     show EntrarSalaAlunoWidget;
 export '/pages/visualizar_sala_aluno/visualizar_sala_aluno_widget.dart'
     show VisualizarSalaAlunoWidget;
+export '/pages/detail_aluno/detail_aluno_widget.dart' show DetailAlunoWidget;
+export '/pages/dashboard/dashboard_widget.dart' show DashboardWidget;
+export '/pages/dash/dash_widget.dart' show DashWidget;

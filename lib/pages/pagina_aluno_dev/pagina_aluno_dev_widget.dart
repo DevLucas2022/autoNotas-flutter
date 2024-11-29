@@ -5,13 +5,19 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'pagina_aluno_dev_model.dart';
 export 'pagina_aluno_dev_model.dart';
 
 class PaginaAlunoDevWidget extends StatefulWidget {
-  const PaginaAlunoDevWidget({super.key});
+  const PaginaAlunoDevWidget({
+    super.key,
+    String? codigoSala,
+  }) : this.codigoSala = codigoSala ?? '-';
+
+  final String codigoSala;
 
   @override
   State<PaginaAlunoDevWidget> createState() => _PaginaAlunoDevWidgetState();
@@ -29,6 +35,7 @@ class _PaginaAlunoDevWidgetState extends State<PaginaAlunoDevWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'PaginaAluno_dev'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -69,25 +76,30 @@ class _PaginaAlunoDevWidgetState extends State<PaginaAlunoDevWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 20.0,
+                  height: 100.0,
                   decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          'ALUNO',
-                          textAlign: TextAlign.start,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter Tight',
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/student.png',
+                          width: 75.0,
+                          height: 502.0,
+                          fit: BoxFit.cover,
                         ),
+                      ),
+                      Text(
+                        ' ALUNOS',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter Tight',
+                              fontSize: 20.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ],
                   ),
@@ -105,11 +117,13 @@ class _PaginaAlunoDevWidgetState extends State<PaginaAlunoDevWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                     child: Text(
-                      'Suas salas. ',
+                      'Disciplinas',
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                            fontFamily: 'PT Sans',
+                            fontSize: 18.0,
                             letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
                           ),
                     ),
                   ),
@@ -177,8 +191,59 @@ class _PaginaAlunoDevWidgetState extends State<PaginaAlunoDevWidget> {
                                       .nomeDisciplina,
                                   ParamType.String,
                                 ),
+                                'codigoSala': serializeParam(
+                                  columnSalasAlunosProfessoresRecord.codigoSala,
+                                  ParamType.String,
+                                ),
+                                'nota1': serializeParam(
+                                  columnSalasAlunosProfessoresRecord.prova1,
+                                  ParamType.double,
+                                ),
+                                'nota2': serializeParam(
+                                  columnSalasAlunosProfessoresRecord.prova2,
+                                  ParamType.double,
+                                ),
+                                'nota3': serializeParam(
+                                  columnSalasAlunosProfessoresRecord
+                                      .recuperacao,
+                                  ParamType.double,
+                                ),
+                                'notaAtividade': serializeParam(
+                                  columnSalasAlunosProfessoresRecord.atividade,
+                                  ParamType.double,
+                                ),
                               }.withoutNulls,
                             );
+                          },
+                          onLongPress: () async {
+                            logFirebaseEvent(
+                                'PAGINA_ALUNO_DEV_Card_a64brqzn_ON_LONG_P');
+                            logFirebaseEvent('Card_alert_dialog');
+                            var confirmDialogResponse = await showDialog<bool>(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Excluir sala'),
+                                      content: Text('Deseja continuar?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, false),
+                                          child: Text('Cancelar'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, true),
+                                          child: Text('Confirmar'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                            logFirebaseEvent('Card_backend_call');
+                            await columnSalasAlunosProfessoresRecord.reference
+                                .delete();
                           },
                           child: Card(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -197,8 +262,8 @@ class _PaginaAlunoDevWidgetState extends State<PaginaAlunoDevWidget> {
                                   child: FlutterFlowIconButton(
                                     borderRadius: 8.0,
                                     buttonSize: 40.0,
-                                    icon: Icon(
-                                      Icons.groups_outlined,
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.book,
                                       color: FlutterFlowTheme.of(context).info,
                                       size: 24.0,
                                     ),
@@ -260,30 +325,48 @@ class _PaginaAlunoDevWidgetState extends State<PaginaAlunoDevWidget> {
                   },
                 ),
               ),
-              FFButtonWidget(
-                onPressed: () async {
-                  logFirebaseEvent('PAGINA_ALUNO_DEV_PAGE_SAIR_BTN_ON_TAP');
-                  logFirebaseEvent('Button_auth');
-                  GoRouter.of(context).prepareAuthEvent();
-                  await authManager.signOut();
-                  GoRouter.of(context).clearRedirectLocation();
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'PAGINA_ALUNO_DEV_SAIR_DO_APLICATIVO_BTN_');
+                      logFirebaseEvent('Button_auth');
+                      GoRouter.of(context).prepareAuthEvent();
+                      await authManager.signOut();
+                      GoRouter.of(context).clearRedirectLocation();
 
-                  context.goNamedAuth('Onboarding', context.mounted);
-                },
-                text: 'sair',
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Inter Tight',
-                        color: Colors.white,
-                        letterSpacing: 0.0,
+                      context.goNamedAuth('Onboarding', context.mounted);
+                    },
+                    text: 'Sair do aplicativo',
+                    icon: Icon(
+                      Icons.subdirectory_arrow_left_rounded,
+                      size: 18.0,
+                    ),
+                    options: FFButtonOptions(
+                      width: 300.0,
+                      height: 52.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Inter Tight',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
                       ),
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                  ),
                 ),
               ),
             ],

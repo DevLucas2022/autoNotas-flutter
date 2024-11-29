@@ -20,12 +20,17 @@ class VisualizarSalaProfessorWidget extends StatefulWidget {
     required this.nomeInstituicao,
     String? nomeDisciplina,
     String? codigoSala,
+    String? categoriaDisciplina,
+    required this.nivelSala,
   })  : this.nomeDisciplina = nomeDisciplina ?? '-',
-        this.codigoSala = codigoSala ?? '-';
+        this.codigoSala = codigoSala ?? '-',
+        this.categoriaDisciplina = categoriaDisciplina ?? '-';
 
   final String? nomeInstituicao;
   final String nomeDisciplina;
   final String codigoSala;
+  final String categoriaDisciplina;
+  final String? nivelSala;
 
   @override
   State<VisualizarSalaProfessorWidget> createState() =>
@@ -206,6 +211,8 @@ class _VisualizarSalaProfessorWidgetState
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -361,6 +368,7 @@ class _VisualizarSalaProfessorWidgetState
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -420,6 +428,40 @@ class _VisualizarSalaProfessorWidgetState
                                   ),
                                 ),
                               ],
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(1.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'VISUALIZAR_SALA_PROFESSOR_INSIGHTS_BTN_O');
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.pushNamed('dash');
+                                },
+                                text: 'Insights',
+                                icon: Icon(
+                                  Icons.insert_chart,
+                                  size: 15.0,
+                                ),
+                                options: FFButtonOptions(
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0xF339D2C0),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Inter Tight',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -544,102 +586,195 @@ class _VisualizarSalaProfessorWidgetState
                                               final columnSalasAlunosProfessoresRecord =
                                                   columnSalasAlunosProfessoresRecordList[
                                                       columnIndex];
-                                              return Card(
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                elevation: 0.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40.0),
-                                                        child: Image.asset(
-                                                          'assets/images/6rudt_i.png',
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          fit: BoxFit.cover,
-                                                        ),
+                                              return InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'VISUALIZAR_SALA_PROFESSOR_Card_3d7xkyd5_');
+                                                  logFirebaseEvent(
+                                                      'Card_navigate_to');
+
+                                                  context.pushNamed(
+                                                    'detailAluno',
+                                                    queryParameters: {
+                                                      'nomeAluno':
+                                                          serializeParam(
+                                                        columnSalasAlunosProfessoresRecord
+                                                            .nomeAluno,
+                                                        ParamType.String,
                                                       ),
-                                                      Expanded(
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                columnSalasAlunosProfessoresRecord
-                                                                    .nomeAluno,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleLarge
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter Tight',
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
+                                                      'prova1': serializeParam(
+                                                        '',
+                                                        ParamType.String,
+                                                      ),
+                                                      'prova2': serializeParam(
+                                                        columnSalasAlunosProfessoresRecord
+                                                            .prova2,
+                                                        ParamType.double,
+                                                      ),
+                                                      'notaAtividade':
+                                                          serializeParam(
+                                                        columnSalasAlunosProfessoresRecord
+                                                            .atividade,
+                                                        ParamType.double,
+                                                      ),
+                                                      'recuperacao':
+                                                          serializeParam(
+                                                        columnSalasAlunosProfessoresRecord
+                                                            .recuperacao,
+                                                        ParamType.double,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                },
+                                                onLongPress: () async {
+                                                  logFirebaseEvent(
+                                                      'VISUALIZAR_SALA_PROFESSOR_Card_3d7xkyd5_');
+                                                  logFirebaseEvent(
+                                                      'Card_alert_dialog');
+                                                  var confirmDialogResponse =
+                                                      await showDialog<bool>(
+                                                            context: context,
+                                                            builder:
+                                                                (alertDialogContext) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                    'Excluir aluno'),
+                                                                content: Text(
+                                                                    'Deseja continuar?'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext,
+                                                                            false),
+                                                                    child: Text(
+                                                                        'Cancelar'),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext,
+                                                                            true),
+                                                                    child: Text(
+                                                                        'Confirmar'),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          ) ??
+                                                          false;
+                                                  logFirebaseEvent(
+                                                      'Card_backend_call');
+                                                  await columnSalasAlunosProfessoresRecord
+                                                      .reference
+                                                      .delete();
+                                                },
+                                                child: Card(
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  elevation: 0.0,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      40.0),
+                                                          child: Image.asset(
+                                                            'assets/images/default-avatar-icon-of-social-media-user-vector.jpg',
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  columnSalasAlunosProfessoresRecord
+                                                                      .nomeAluno,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter Tight',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                columnSalasAlunosProfessoresRecord
-                                                                    .emailAluno,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  columnSalasAlunosProfessoresRecord
+                                                                      .emailAluno,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.all(4.0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .keyboard_arrow_right_rounded,
-                                                          color:
-                                                              Color(0xFF57636C),
-                                                          size: 24.0,
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: Icon(
+                                                            Icons
+                                                                .keyboard_arrow_right_rounded,
+                                                            color: Color(
+                                                                0xFF57636C),
+                                                            size: 24.0,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               );

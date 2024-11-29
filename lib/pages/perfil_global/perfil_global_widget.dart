@@ -28,6 +28,7 @@ class _PerfilGlobalWidgetState extends State<PerfilGlobalWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'PerfilGlobal'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -49,25 +50,6 @@ class _PerfilGlobalWidgetState extends State<PerfilGlobalWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 110.0,
-                decoration: BoxDecoration(),
-                child: AuthUserStreamWidget(
-                  builder: (context) => Container(
-                    width: 10.0,
-                    height: 10.0,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      currentUserPhoto,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Container(
@@ -129,15 +111,9 @@ class _PerfilGlobalWidgetState extends State<PerfilGlobalWidget> {
                       onPressed: () async {
                         logFirebaseEvent(
                             'PERFIL_GLOBAL_ATUALIZAR_INFOMAES_BTN_ON_');
-                        logFirebaseEvent('Button_auth');
-                        GoRouter.of(context).prepareAuthEvent();
-                        await authManager.signOut();
-                        GoRouter.of(context).clearRedirectLocation();
-
                         logFirebaseEvent('Button_navigate_to');
 
-                        context.pushNamedAuth(
-                            'atualizarInformacoesGlobal', context.mounted);
+                        context.pushNamed('atualizarInformacoesGlobal');
                       },
                       text: 'Atualizar infomações',
                       icon: Icon(
@@ -171,7 +147,7 @@ class _PerfilGlobalWidgetState extends State<PerfilGlobalWidget> {
               ),
               Container(
                 width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 219.0,
+                height: 397.0,
                 decoration: BoxDecoration(),
               ),
               Align(

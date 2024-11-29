@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,8 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
     _model.randomCodeTextController ??=
         TextEditingController(text: functions.gerarCodigoAleatorio());
     _model.randomCodeFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -79,13 +83,6 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
               context.pop();
             },
           ),
-          title: Text(
-            'Criar sala',
-            style: FlutterFlowTheme.of(context).titleLarge.override(
-                  fontFamily: 'Inter Tight',
-                  letterSpacing: 0.0,
-                ),
-          ),
           actions: [],
           centerTitle: false,
           elevation: 0.0,
@@ -99,17 +96,10 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Gere uma sala ',
-                    style: FlutterFlowTheme.of(context).labelLarge.override(
-                          fontFamily: 'Inter',
-                          letterSpacing: 0.0,
-                        ),
-                  ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
-                      'Adicione os seus alunos',
+                      'Criar sala',
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
                                 fontFamily: 'Inter Tight',
@@ -184,127 +174,213 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
                               .textFieldInstituicaoTextControllerValidator
                               .asValidator(context),
                         ),
-                        TextFormField(
-                          controller: _model.textFieldDisciplinaTextController,
-                          focusNode: _model.textFieldDisciplinaFocusNode,
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Disciplina',
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 12.0, 16.0, 12.0),
-                          ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
+                        Container(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller:
+                                _model.textFieldDisciplinaTextController,
+                            focusNode: _model.textFieldDisciplinaFocusNode,
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Disciplina',
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                          cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model
-                              .textFieldDisciplinaTextControllerValidator
-                              .asValidator(context),
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 12.0, 16.0, 12.0),
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            cursorColor: FlutterFlowTheme.of(context).primary,
+                            validator: _model
+                                .textFieldDisciplinaTextControllerValidator
+                                .asValidator(context),
+                          ),
                         ),
-                        TextFormField(
-                          controller: _model.textFieldDescricaoTextController,
-                          focusNode: _model.textFieldDescricaoFocusNode,
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            hintText: 'Descrição',
-                            hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 24.0, 16.0, 12.0),
-                          ),
-                          style:
+                        FlutterFlowDropDown<String>(
+                          controller: _model.nivelSalaValueController ??=
+                              FormFieldController<String>(null),
+                          options: [
+                            'Fundamental I',
+                            'Fundamental II',
+                            'Médio',
+                            'Superior'
+                          ],
+                          onChanged: (val) =>
+                              safeSetState(() => _model.nivelSalaValue = val),
+                          width: double.infinity,
+                          height: 40.0,
+                          textStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                          maxLines: 16,
-                          minLines: 6,
-                          cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model
-                              .textFieldDescricaoTextControllerValidator
-                              .asValidator(context),
+                          hintText: 'Selecione o nível',
+                          icon: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          elevation: 2.0,
+                          borderColor: FlutterFlowTheme.of(context).alternate,
+                          borderWidth: 2.0,
+                          borderRadius: 8.0,
+                          margin: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 12.0, 16.0, 12.0),
+                          hidesUnderline: true,
+                          isOverButton: false,
+                          isSearchable: false,
+                          isMultiSelect: false,
+                        ),
+                        FlutterFlowDropDown<String>(
+                          controller:
+                              _model.categoriaDisciplinaValueController ??=
+                                  FormFieldController<String>(null),
+                          options: [
+                            'Linguagens e suas Tecnologias',
+                            'Matemática e suas Tecnologias',
+                            'Ciências da Natureza e suas Tecnologias',
+                            'Ciências Humanas e Sociais Aplicadas'
+                          ],
+                          onChanged: (val) => safeSetState(
+                              () => _model.categoriaDisciplinaValue = val),
+                          width: double.infinity,
+                          height: 40.0,
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          hintText: 'Categoria da disciplina',
+                          icon: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          elevation: 2.0,
+                          borderColor: FlutterFlowTheme.of(context).alternate,
+                          borderWidth: 2.0,
+                          borderRadius: 8.0,
+                          margin: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 12.0, 16.0, 12.0),
+                          hidesUnderline: true,
+                          isOverButton: false,
+                          isSearchable: false,
+                          isMultiSelect: false,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller: _model.textFieldDescricaoTextController,
+                            focusNode: _model.textFieldDescricaoFocusNode,
+                            autofocus: false,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              hintText: 'Descrição',
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              filled: true,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            maxLines: 4,
+                            cursorColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            validator: _model
+                                .textFieldDescricaoTextControllerValidator
+                                .asValidator(context),
+                          ),
                         ),
                         TextFormField(
                           controller: _model.randomCodeTextController,
@@ -313,11 +389,12 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
                           readOnly: true,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Código aleatório',
+                            labelText: 'Código da sala',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Inter',
+                                  fontSize: 14.0,
                                   letterSpacing: 0.0,
                                 ),
                             hintStyle: FlutterFlowTheme.of(context)
@@ -360,6 +437,7 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
+                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
                                   ),
                           cursorColor: FlutterFlowTheme.of(context).primary,
@@ -384,13 +462,16 @@ class _CriarSalaProfessorWidgetState extends State<CriarSalaProfessorWidget> {
                               nomeInstituicao: _model
                                   .textFieldInstituicaoTextController.text,
                               descricaoSala:
-                                  _model.textFieldDescricaoTextController.text,
+                                  _model.textFieldDisciplinaTextController.text,
                               nomeDisciplina:
                                   _model.textFieldDisciplinaTextController.text,
                               codigoSala: _model.randomCodeTextController.text,
                               userId: currentUserReference,
                               nomeProfessor:
                                   valueOrDefault(currentUserDocument?.nome, ''),
+                              categoriaDisciplina:
+                                  _model.categoriaDisciplinaValue,
+                              nivelSala: _model.nivelSalaValue,
                             ));
                         logFirebaseEvent('Button_navigate_to');
 
